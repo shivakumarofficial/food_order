@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="jumbotron">
+
+        <!-- TOP 30% : QUOTE SECTION -->
+        <div class="card card-body text-center"
+             style="min-height:30vh; display:flex; justify-content:center;">
+            
+            <div>
+                <h3>
+                    “People who love food are always the best people”
+                </h3>
+                <p class="text-muted">
+                    Food is always a good idea 🍔🍕
+                </p>
+            </div>
+
+        </div>
+
+        <br>
+
+        <!-- BOTTOM 60% : FOOD SECTION -->
+        <div style="min-height:60vh;">
+
+            <h5 class="mb-3">
+                Top Rated Foods (⭐ 4+)
+            </h5>
+
+            <div class="row">
+
+                {% for i in foods %}
+                    {% if i.rating >= 4 %}
+                    <div class="col-md-4 mb-4">   <!-- 3 per row -->
+
+                        <div class="card card-body text-center">
+
+                            {% if i.food_img %}
+                                <img src="{{ i.food_img.url }}"
+                                     class="img-fluid"
+                                     style="height:150px; object-fit:cover;">
+                            {% else %}
+                                <img src="{% static 'images/defaultimg.png' %}"
+                                     class="img-fluid"
+                                     style="height:150px; object-fit:cover;">
+                            {% endif %}
+
+                        </div>
+
+                        <!-- <a href="{{ i.id }}" class="d-block text-center mt-2">
+                            {{ i.name }}
+                        </a>-->
+                        <a href="{% url 'food_details' i.id %}" class="d-block text-center mt-2">
+                              {{ i.name }}
+                        </a>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- BREADCRUMB -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'allfoods' %}">All Foods</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ fooditem.name }}
+            </li>
+        </ol>
+    </nav>
+
+    <div class="card shadow-lg p-4">
+        <div class="row align-items-center">
+
+            <!-- LEFT SIDE : FOOD IMAGE -->
+            <div class="col-md-5 text-center">
+                {% if fooditem.food_img %}
+                    <img src="{{ fooditem.food_img.url }}"
+                         class="img-fluid rounded"
+                         style="max-height:320px; object-fit:cover;">
+                {% else %}
+                    <img src="{% static 'images/defaultimg.png' }}"
+                         class="img-fluid rounded"
+                         style="max-height:320px; object-fit:cover;">
+                {% endif %}
+            </div>
+
+            <!-- RIGHT SIDE : FOOD DETAILS -->
+            <div class="col-md-7">
+                <h2 class="mb-2">{{ fooditem.name }}</h2>
+
+                <!-- CATEGORY BADGE -->
+                <span class="badge bg-info text-dark mb-3">
+                    {{ fooditem.Category }}
+                </span>
+
+                <p class="fs-5 mt-3">
+                    <strong>Price:</strong> ₹ {{ fooditem.price }}
+                </p>
+
+                <p class="fs-5">
+                    <strong>Rating:</strong> ⭐ {{ fooditem.rating }} / 5
+                </p>
+
+                <!-- DESCRIPTION -->
+                <div class="mt-3">
+                    <h6>Description</h6>
+                    <p class="text-muted">
+                        {{ fooditem.description }}
+                    </p>
+                </div>
+
+                <!-- BUTTONS -->
+                <a href="{% url 'add_to_cart' fooditem.id %}" class="btn btn-warning">
+                     Add to Cart
+                </a>
+
+                <a href="{% url 'customize_food' fooditem.id %}" class="btn btn-success">
+                        Customize
+                </a>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

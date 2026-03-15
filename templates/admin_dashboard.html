@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Food Admin</h2>
+
+<a href="{% url 'admin_dashboard' %}">Dashboard</a>
+<a href="{% url 'addnewfood' %}">Add Food</a>
+<a href="{% url 'admin_all_foods' %}">All Foods</a>
+<a href="{% url 'view_orders' %}">Order Details</a>
+<a href="{% url 'user_details' %}">User Details</a>
+<a href="{% url 'contact_messages' %}">Contact Us</a>
+<a href="{% url 'logout' %}">Logout</a>
+
+
+</div>
+
+<div class="content">
+
+<h1>Admin Dashboard</h1>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Foods</h3>
+<p>{{ foods_count }}</p>
+</div>
+
+<div class="card">
+<h3>Total Orders</h3>
+<p>{{ orders_count }}</p>
+</div>
+
+<div class="card">
+<h3>Total Users</h3>
+<p>{{ users_count }}</p>
+</div>
+
+</div>
+
+
+<h2>All Foods</h2>
+
+<div class="food-container">
+
+{% for food in foods %}
+
+<div class="food-card">
+
+<h3>{{ food.name }}</h3>
+
+<p>Price: ₹{{ food.price }}</p>
+
+{% if food.food_img %}
+<img src="{{ food.food_img.url }}" width="200">
+{% else %}
+<p>No Image</p>
+{% endif %}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<h2>Orders</h2>
+
+<table border="1">
+
+<tr>
+<th>User</th>
+<th>Food</th>
+<th>Status</th>
+</tr>
+
+{% for order in orders %}
+
+<tr>
+<td>{{order.user}}</td>
+<td>{{order.food}}</td>
+<td>{{order.status}}</td>
+</tr>
+
+{% endfor %}
+
+</table>

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container mt-3">
+
+  <div class="d-flex justify-content-between align-items-center">
+
+    <!-- LEFT : BREADCRUMB -->
+    <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+
+    <li class="breadcrumb-item">
+      <a href="{% url 'home' %}">Home</a>
+    </li>
+
+    <!-- ALL FOODS (NO PARAMETER) -->
+    <li class="breadcrumb-item">
+      <a href="{% url 'allfoods' %}">All Foods</a>
+    </li>
+
+    <!-- CATEGORY LINKS (WITH PARAMETER) -->
+    <li class="breadcrumb-item">
+      <a href="{% url 'category_foods' 'PIZZA' %}">Pizza</a>
+    </li>
+
+    <li class="breadcrumb-item">
+      <a href="{% url 'category_foods' 'BURGERS' %}">Burger</a>
+    </li>
+
+    <li class="breadcrumb-item">
+      <a href="{% url 'category_foods' 'DESSARTS' %}">Desserts</a>
+    </li>
+
+    <li class="breadcrumb-item">
+      <a href="{% url 'category_foods' 'BREVERAGES' %}">Beverages</a>
+    </li>
+
+    <li class="breadcrumb-item">
+      <a href="{% url 'category_foods' 'MAIN_COURSE' %}">Main Course</a>
+    </li>
+
+    <li class="breadcrumb-item">
+      <a href="{% url 'category_foods' 'ROOLS AND SANDWICH' %}">
+        Rolls & Sandwich
+      </a>
+    </li>
+
+  </ol>
+</nav>
+
+    {% if user.is_authenticated and  user.userdetails.user_type == 'VENDOR' %}
+        <a href="{% url 'add_food' %}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Add Food
+        </a>
+    {% endif %}
+
+
+
+
+  </div>
+
+</div>
+
+
+
+
+
+
+<div class="container mt-4">
+
+    <h3 class="mb-4 text-center">All Food Items</h3>
+
+    <div class="row">
+        {% for food in foods %}
+        <div class="col-md-4 mb-4">   <!-- 3 cards per row -->
+
+            <div class="card h-100 shadow-sm">
+
+                {% if food.food_img %}
+                    <img src="{{ food.food_img.url }}"
+                         class="card-img-top"
+                         style="height:200px; object-fit:cover;">
+                {% else %}
+                    <img src="{% static 'images/defaultimg.png' %}"
+                         class="card-img-top"
+                         style="height:200px; object-fit:cover;">
+                {% endif %}
+
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ food.name }}</h5>
+
+                    <a href="{% url 'food_details' food.id %}"
+                       class="btn btn-primary btn-sm">
+                        View Details
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

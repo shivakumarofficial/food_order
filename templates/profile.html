@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="jumbotron">
+        <h1> {{ user.username }} 's Profile</h1>
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Users Profile Pic</h6>
+                    {% if user.userdetails.userpic %}
+                        <img src="{{ user.userdetails.userpic.url }}"  height="200px" width="200px" alt="">
+                    {% endif %}
+                </div>
+
+                <div class="col-md-6">
+                    <h6>user : {{ user.userdetails.user }}</h6>
+                    <h6>EMAIL : {{ user.email }}</h6>
+                    <h6>PONE : {{ user.userdetails.phone }}</h6>
+                    <h6>ADDRESS : {{ user.userdetails.address }}</h6>
+                    <h6>STREET : {{ user.userdetails.street }}</h6>
+                    <h6>CITY : {{ user.userdetails.city }}</h6>
+                    <h6>PINCODE : {{ user.userdetails.zipcode }}</h6>
+
+                    <br>
+                    <a href="{% url 'update' %}" class="btn btn-primary" type="submit" value="update">UPDATE DETAILS</a>
+                    <!-- <form action="{% url 'update' %}" method="POST"></form> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
